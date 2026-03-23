@@ -30,7 +30,7 @@ jobs:
         with:
           model: {{ default_ai_model }}
           prompt: |
-            Analyze the QA results for PR #${% raw %}${{ github.event.number }}{% endraw %}.
+            Analyze the QA results for PR #{{ '{' }}{{ '{' }} github.event.number {{ '}' }}{{ '}' }}.
             Review test coverage, compatibility matrix results, and security audits.
             Produce a QA Report as specified in docs/agentic-workflow/qa-agent.md.
         env:

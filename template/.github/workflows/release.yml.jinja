@@ -25,7 +25,7 @@ jobs:
         with:
           model: {{ default_ai_model }}
           prompt: |
-            Analyze the project's readiness for version #${{% raw %}${{ github.event.inputs.version }}{% endraw %}}.
+            Analyze the project's readiness for version #{{ '{' }}{{ '{' }} github.event.inputs.version {{ '}' }}{{ '}' }}.
             Review closed issues in the current milestone, QA results, and changelog.
             Produce a Release Candidate (RC) report as specified in docs/agentic-workflow/release-agent.md.
         env:
