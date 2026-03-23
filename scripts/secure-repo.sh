@@ -9,6 +9,16 @@ NAME=$(echo "$REPO" | cut -d'/' -f2)
 
 echo "==> Securing repository: $REPO"
 
+# 0. Ensure 'develop' branch exists and set as default
+if ! gh api "/repos/$REPO/branches/develop" --silent 2>/dev/null; then
+    echo "--> Creating 'develop' branch..."
+    MAIN_SHA=$(gh api "/repos/$REPO/commits/main" -q .sha)
+    gh api -X POST "/repos/$REPO/git/refs" -f ref="refs/heads/develop" -f sha="$MAIN_SHA" > /dev/null
+fi
+
+echo "--> Setting 'develop' as the default branch..."
+gh repo edit "$REPO" --default-branch develop
+
 # 1. Enable Basic GitHub Features
 echo "--> Enabling vulnerability alerts and security fixes..."
 gh api -X PUT "/repos/$REPO/vulnerability-alerts" > /dev/null
@@ -21,22 +31,17 @@ gh repo edit "$REPO" \
     --enable-secret-scanning-push-protection
 
 # 2. Create/Update Branch Protection Ruleset
-echo "--> Applying 'Main Branch Protection' ruleset..."
-# We use a ruleset named "Standard Protection"
-# It applies to the 'main' branch
-
-# Check if ruleset exists to decide POST or PUT (simplification: we delete and recreate or just try POST)
-# For robustness in a script, we'll try to find existing ruleset ID first
-RULESET_ID=$(gh api "/repos/$REPO/rulesets" -q '.[] | select(.name=="Main Branch Protection") | .id')
+echo "--> Applying 'Branch Protection' ruleset to main and develop..."
+RULESET_ID=$(gh api "/repos/$REPO/rulesets" -q '.[] | select(.name=="Branch Protection") | .id')
 
 RULESET_PAYLOAD=$(cat <<EOF
 {
-  "name": "Main Branch Protection",
+  "name": "Branch Protection",
   "target": "branch",
-  "enforcement": "enabled",
+  "enforcement": "active",
   "conditions": {
     "ref_name": {
-      "include": ["refs/heads/main"],
+      "include": ["refs/heads/main", "refs/heads/develop"],
       "exclude": []
     }
   },
@@ -78,11 +83,13 @@ fi
 
 echo "✓ Repository secured successfully!"
 echo "Summary of protections applied:"
+echo " - Default Branch: develop"
+echo " - Stable/Release Branch: main"
 echo " - Dependabot Security Updates: ENABLED"
 echo " - Secret Scanning: ENABLED"
 echo " - Push Protection: ENABLED"
-echo " - Force Pushes: BLOCKED on main"
-echo " - Deletions: BLOCKED on main"
-echo " - Signed Commits: REQUIRED on main"
+echo " - Force Pushes: BLOCKED on main/develop"
+echo " - Deletions: BLOCKED on main/develop"
+echo " - Signed Commits: REQUIRED on main/develop"
 echo " - PR Review: REQUIRED (min 1 approval)"
 echo " - Status Checks: REQUIRED ('Scaffolding Tests')"
