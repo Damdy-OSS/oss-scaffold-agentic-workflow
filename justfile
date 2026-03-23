@@ -15,3 +15,11 @@ test:
     uv run pytest
 
 qa: lint test
+
+setup-github:
+    bash scripts/setup-github.sh
+
+secure:
+    bash scripts/secure-repo.sh
+
+
