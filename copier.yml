@@ -1,4 +1,16 @@
 _subdirectory: template
+_exclude:
+  - "{% if not use_ai_layer %}CLAUDE.md{% endif %}"
+  - "{% if not use_ai_layer %}GEMINI.md{% endif %}"
+  - "{% if not use_ai_layer %}JULES.md{% endif %}"
+  - "{% if not use_ai_layer %}.mcp.json{% endif %}"
+  - "{% if not use_ai_layer %}.claude{% endif %}"
+  - "{% if not use_ai_layer %}.claude/**{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/qa.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/release.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/scheduled.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/community.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/code-review.yml{% endif %}"
 _skip_if_exists:
   - CHANGELOG.md
   - .copier-answers.yml

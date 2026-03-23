@@ -1,0 +1,22 @@
+[project]
+name = "oss-scaffold"
+version = "0.1.0"
+description = "A production-grade Copier template for bootstrapping open-source projects with batteries included."
+readme = "README.md"
+authors = [{ name = "Yevhenii Dehtiar", email = "yevhenii.dehtiar@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "copier>=9",
+    "jinja2>=3",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8",
+    "ruff>=0.9",
+    "pre-commit>=3",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -q"
