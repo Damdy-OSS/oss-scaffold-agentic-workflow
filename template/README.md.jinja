@@ -1,0 +1,73 @@
+# {{ project_name }}
+
+{{ project_description }}
+
+<p align="center">
+  <a href="https://github.com/{{ github_org }}/{{ project_slug }}/actions/workflows/ci.yml">
+    <img src="https://github.com/{{ github_org }}/{{ project_slug }}/actions/workflows/ci.yml/badge.svg" alt="CI">
+  </a>
+  <a href="https://codecov.io/gh/{{ github_org }}/{{ project_slug }}">
+    <img src="https://codecov.io/gh/{{ github_org }}/{{ project_slug }}/branch/main/graph/badge.svg" alt="Coverage">
+  </a>
+  <a href="https://pypi.org/project/{{ project_slug }}/">
+    <img src="https://img.shields.io/pypi/v/{{ project_slug }}.svg" alt="PyPI">
+  </a>
+  <a href="https://pypi.org/project/{{ project_slug }}/">
+    <img src="https://img.shields.io/pypi/pyversions/{{ project_slug }}.svg" alt="Python Versions">
+  </a>
+  <a href="https://github.com/astral-sh/ruff">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff">
+  </a>
+{% if use_mkdocs %}
+  <a href="https://{{ github_org }}.github.io/{{ project_slug }}">
+    <img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Docs">
+  </a>
+{% endif %}
+  <a href="https://pepy.tech/project/{{ project_slug }}">
+    <img src="https://static.pepy.tech/badge/{{ project_slug }}/month" alt="Downloads">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-{{ license | urlencode }}-blue.svg" alt="License">
+  </a>
+</p>
+
+## Installation
+
+```bash
+pip install {{ project_slug }}
+```
+
+## Quick start
+
+```python
+import {{ project_slug | replace('-','_') }}
+
+print({{ project_slug | replace('-','_') }}.__version__)
+```
+
+## Development
+
+```bash
+# Install just (task runner)
+# https://github.com/casey/just
+
+# Bootstrap dev environment
+just bootstrap
+
+# Run linter + formatter
+just lint
+
+# Run tests
+just test
+
+# Serve docs locally
+just docs
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+{{ license }} — see [LICENSE](LICENSE) for details.

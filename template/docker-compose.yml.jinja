@@ -1,0 +1,9 @@
+{% if use_docker %}
+services:
+  {{ project_slug }}:
+    build: .
+    image: ghcr.io/{{ github_org }}/{{ project_slug }}:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+{% endif %}

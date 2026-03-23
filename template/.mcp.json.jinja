@@ -1,0 +1,20 @@
+{% if use_ai_layer %}
+{
+  "mcpServers": {
+{% if mcp_slack_enabled %}
+    "slack": {
+      "type": "url",
+      "url": "https://mcp.slack.com/mcp",
+      "name": "slack-mcp"
+    }
+{% endif %}
+  },
+  "defaultModel": "{{ default_ai_model }}",
+  "projectContext": {
+    "name": "{{ project_name }}",
+    "slug": "{{ project_slug }}",
+    "org": "{{ github_org }}",
+    "language": "{{ language }}"
+  }
+}
+{% endif %}

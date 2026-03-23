@@ -1,0 +1,84 @@
+# {{ project_name }} — justfile
+# Run `just` to list targets
+
+set dotenv-load := true
+
+default:
+    @just --list
+
+# ── Setup ─────────────────────────────────────────────────────
+bootstrap:
+    uv sync --all-extras
+    uv run pre-commit install
+    @echo "✓ Bootstrap complete — environment ready (.venv + pre-commit)"
+
+setup: bootstrap
+
+# ── Quality ───────────────────────────────────────────────────
+lint:
+    uv run ruff check . --fix
+    uv run ruff format .
+
+fmt: lint
+
+type-check:
+    uv run mypy src
+    uv run pyright src
+
+audit:
+    uv run pip-audit
+    uv run safety check
+
+complexity:
+    uv run radon cc src -n C
+
+qa: lint type-check audit test-cov
+    @echo "✓ QA passed — project is healthy"
+
+test:
+    uv run pytest --tb=short -q
+
+test-cov:
+    uv run pytest --tb=short --cov=src/{{ project_slug | replace('-','_') }} --cov-report=term-missing --cov-fail-under=80
+
+# ── Build ─────────────────────────────────────────────────────
+build:
+    uv build
+
+# ── Docker ────────────────────────────────────────────────────
+{% if use_docker %}
+docker-build tag="latest":
+    docker build -t ghcr.io/{{ github_org }}/{{ project_slug }}:{% raw %}{{tag}}{% endraw %} .
+
+docker-push tag="latest":
+    docker push ghcr.io/{{ github_org }}/{{ project_slug }}:{% raw %}{{tag}}{% endraw %}
+{% endif %}
+
+# ── Docs ──────────────────────────────────────────────────────
+{% if use_mkdocs %}
+docs:
+    uv run mkdocs serve
+
+docs-deploy:
+    uv run mkdocs gh-deploy --force
+{% endif %}
+
+# ── Release ───────────────────────────────────────────────────
+release:
+    @if [ -z "$(git status --porcelain)" ]; then \
+        uv run cz bump --changelog; \
+        git push origin main --tags; \
+        echo "✓ Release created and pushed"; \
+    else \
+        echo "❌ Working directory is not clean. Commit or stash changes first."; \
+        exit 1; \
+    fi
+
+# ── Utils ─────────────────────────────────────────────────────
+clean:
+    rm -rf dist/ site/ .pytest_cache/ __pycache__/ *.egg-info/ .ruff_cache/ .mypy_cache/ .pyright_cache/
+    @echo "✓ Clean"
+
+setup-github:
+    bash scripts/setup-github.sh
+

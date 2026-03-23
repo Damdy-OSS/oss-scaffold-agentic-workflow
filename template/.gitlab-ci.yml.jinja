@@ -1,0 +1,51 @@
+{% if ci_target in ['gitlab-ci', 'both'] %}
+stages:
+  - lint
+  - test
+  - build
+  - deploy-docs
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.pip-cache"
+
+python-lint:
+  stage: lint
+  image: python:{{ python_version }}-slim
+  script:
+    - pip install uv
+    - uv sync --all-extras
+    - uv run ruff check .
+    - uv run ruff format --check .
+
+python-test:
+  stage: test
+  image: python:{{ python_version }}-slim
+  script:
+    - pip install uv
+    - uv sync --all-extras
+    - uv run pytest --tb=short --cov={{ project_slug | replace('-','_') }}
+
+{% if use_docker %}
+docker-build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+{% endif %}
+
+{% if use_mkdocs %}
+pages:
+  stage: deploy-docs
+  image: python:3.13-slim
+  script:
+    - pip install mkdocs-material
+    - mkdocs build --strict --site-dir public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+{% endif %}
+{% endif %}
