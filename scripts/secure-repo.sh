@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Get repository context
-REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+REPO="${1:-$(gh repo view --json nameWithOwner -q .nameWithOwner)}"
 OWNER=$(echo "$REPO" | cut -d'/' -f1)
 NAME=$(echo "$REPO" | cut -d'/' -f2)
 

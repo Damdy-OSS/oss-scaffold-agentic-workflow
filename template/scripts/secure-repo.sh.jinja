@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Get repository context
-REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+REPO="${1:-$(gh repo view --json nameWithOwner -q .nameWithOwner)}"
 
 echo "==> Securing repository: $REPO"
 
