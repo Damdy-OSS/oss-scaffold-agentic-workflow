@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tools** | Jules (primary), Gemini CLI (quick tasks), Claude Code (complex) |
+| **Tier** | Production (Primary) / Utility (Tests) |
 | **Trigger** | Task dispatched from workload queue (GitHub Issue assigned) |
 | **Purpose** | Implement code changes according to task specification |
-| **Cost** | Jules tasks (within subscription), Claude Code msgs from Pro quota |
+| **Est. Cost** | 20k - 100k tokens per implementation task |
 
 ## Tiering Strategy
 

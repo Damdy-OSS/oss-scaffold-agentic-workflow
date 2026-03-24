@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tool** | Jules (test execution), {{ default_ai_model }} (analysis) |
+| **Tier** | Utility (Tests) / Production (Analysis) |
 | **Trigger** | PR passes code review |
 | **Purpose** | Run comprehensive test suite including compatibility matrix |
-| **Cost** | Jules tasks for test runs, ~3-5 Claude msgs for analysis |
+| **Est. Cost** | 5k - 20k tokens for analysis per task |
 
 ## Testing Scope
 

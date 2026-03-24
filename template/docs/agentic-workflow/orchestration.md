@@ -6,12 +6,12 @@ The entire orchestration runs through GitHub's native event system — no custom
 
 ```
 Human creates issue with label "idea"
-  → GitHub Action triggers Deep Research (Claude Code)
+  → GitHub Action triggers Deep Research (High-Reasoning Model)
   → Deep Research completes → adds label "researched"
-  → GitHub Action triggers Roadmap Planning (Claude)
+  → GitHub Action triggers Roadmap Planning (High-Reasoning Model)
   → Planning creates Project board + sub-issues → adds label "planned"
   → Human reviews, approves → adds label "approved"
-  → GitHub Action assigns issues to Jules / Claude Code
+  → GitHub Action assigns issues to Dev Agents (Production/Utility)
   → Dev agent creates PR → triggers Code Review Action
   → Review approved → triggers QA matrix
   → QA passes → adds label "qa-passed"

@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tool** | GitHub Actions (webhook) + {{ default_ai_model }} (triage) |
+| **Tier** | Production Model (Triage) |
 | **Trigger** | New issue, discussion, or PR from external contributor |
 | **Purpose** | Triage community input and route to appropriate workflow |
-| **Cost** | ~1-2 Claude msgs per community interaction |
+| **Est. Cost** | 2k - 10k tokens per community interaction |
 
 ## Triage Flow
 

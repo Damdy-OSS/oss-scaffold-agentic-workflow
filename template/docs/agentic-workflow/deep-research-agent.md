@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tool** | Claude Opus (via claude.ai or Claude Code) |
+| **Tier** | High-Reasoning Model (e.g. Claude Opus, OpenAI o1) |
 | **Trigger** | Human submits a raw idea or feature request |
 | **Purpose** | Clarify ambiguous ideas through structured Q&A until understanding > 85% |
-| **Cost** | ~15-20 Opus messages per research session |
+| **Est. Cost** | 50k - 150k tokens per research session |
 
 ## How It Works
 

@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tool** | GitHub Actions (cron) + {{ default_ai_model }} (analysis) |
+| **Tier** | Utility (Scan) / Production (Analysis) |
 | **Trigger** | Weekly cron schedule |
 | **Purpose** | Proactive health monitoring of the library |
-| **Cost** | ~5-10 Claude msgs per weekly scan |
+| **Est. Cost** | 5k - 15k tokens per weekly scan |
 
 ## Weekly Scans
 

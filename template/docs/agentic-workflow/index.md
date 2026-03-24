@@ -19,20 +19,23 @@ Human → Deep Research → Roadmap Planning → Workload Queue → Dev Agents
 
 ## Agents
 
-| # | Agent | Tool | Purpose |
+| # | Agent | Tool Tier | Purpose |
 |---|-------|------|---------|
-| 1 | [Deep Research](deep-research-agent.md) | Claude Opus | Clarify ideas through structured Q&A |
-| 2 | [Roadmap Planning](roadmap-planning-agent.md) | Claude Opus/{{ default_ai_model }} | Decompose specs into milestones/epics/tasks |
-| 3 | [Dev Agents](dev-agents.md) | Jules / Gemini CLI / Claude Code | Implement code changes |
-| 4 | [Code Review](code-review-agent.md) | {{ default_ai_model }} | Automated review with audit trail |
-| 5 | [QA](qa-agent.md) | Jules + {{ default_ai_model }} | Compatibility matrix + test analysis |
-| 6 | [Release](release-agent.md) | {{ default_ai_model }} + GitHub Actions | Changelog, versioning, publish |
-| 7 | [Scheduled](scheduled-agent.md) | GitHub Actions + {{ default_ai_model }} | Weekly health monitoring |
-| 8 | [Community Ingestion](community-ingestion.md) | GitHub Actions + {{ default_ai_model }} | Triage external contributions |
+| 1 | [Deep Research](deep-research-agent.md) | High-Reasoning | Clarify ideas through structured Q&A |
+| 2 | [Roadmap Planning](roadmap-planning-agent.md) | High-Reasoning | Decompose specs into milestones/epics/tasks |
+| 3 | [Dev Agents](dev-agents.md) | Production / Utility | Implement code changes |
+| 4 | [Code Review](code-review-agent.md) | Production | Automated review with audit trail |
+| 5 | [QA](qa-agent.md) | Utility / Production | Compatibility matrix + test analysis |
+| 6 | [Release](release-agent.md) | Production | Changelog, versioning, publish |
+| 7 | [Scheduled](scheduled-agent.md) | Utility / Production | Weekly health monitoring |
+| 8 | [Community Ingestion](community-ingestion.md) | Production | Triage external contributions |
 
 ## Cross-Agent Orchestration
 
+See [Models & Plans](models-setup.md) for tiered configuration options (Eco, Balanced, Power).
+
 See [Orchestration](orchestration.md) for the event flow, label-based state machine, and project memory.
+
 
 ## Cost Model
 

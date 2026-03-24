@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tool** | {{ default_ai_model }} |
+| **Tier** | Production Model (e.g. {{ default_ai_model }}) |
 | **Trigger** | PR submitted (by Jules, human, or Claude Code) |
 | **Purpose** | Review code quality, correctness, backward compat, produce audit trail |
-| **Cost** | ~2-4 Claude messages per PR review |
+| **Est. Cost** | 15k - 40k tokens per PR review |
 
 ## What It Reviews
 

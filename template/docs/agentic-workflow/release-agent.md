@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tool** | {{ default_ai_model }} (decision logic), GitHub Actions (execution) |
+| **Tier** | Production Model (Decision Logic) |
 | **Trigger** | All tasks in milestone pass QA |
 | **Purpose** | Prepare release candidate, generate changelog, publish package |
-| **Cost** | ~5-10 Claude msgs per release |
+| **Est. Cost** | 10k - 30k tokens per release cycle |
 
 ## Release Pipeline
 

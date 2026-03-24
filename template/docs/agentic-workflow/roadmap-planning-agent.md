@@ -2,10 +2,10 @@
 
 | Property | Value |
 |---|---|
-| **Tool** | Claude Opus (complex planning), {{ default_ai_model }} (updates) |
+| **Tier** | High-Reasoning Model (e.g. Claude Opus, Gemini Pro) |
 | **Trigger** | Deep Research agent delivers specification with score > 85% |
 | **Purpose** | Decompose specification into GitHub milestones, epics, tasks with dependencies |
-| **Cost** | ~1 Claude Opus session (10-15 msgs) for initial plan, ~5 {{ default_ai_model }} msgs for updates |
+| **Est. Cost** | 30k - 80k tokens per initial plan |
 
 ## Core Principles for Planning
 
