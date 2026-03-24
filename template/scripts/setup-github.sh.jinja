@@ -34,7 +34,7 @@ if [ -f ".github/project-memory.json" ]; then
     echo "✓ Project memory already exists"
 else
     echo "==> Initializing .github/project-memory.json..."
-    cat <<EOF > .github/project-memory.json
+    cat <<'EOF' > .github/project-memory.json
 {
   "current_version": "{{ initial_version }}",
   "supported_versions": ["{{ initial_version.split('.')[0] }}.{{ initial_version.split('.')[1] }}.x"],
