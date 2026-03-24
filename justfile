@@ -35,13 +35,8 @@ qa: lint test
 
 # Configure GitHub labels for the 8-agent workflow
 setup-github repo="":
-    bash scripts/setup-github.sh {{ repo }}
-
+    bash scripts/setup-github.sh '{{repo}}'
 
 # Harden repository security and branch rules
 secure repo="":
-    bash scripts/secure-repo.sh {{ repo }}
-
-
-
-
+    bash scripts/secure-repo.sh '{{repo}}'
