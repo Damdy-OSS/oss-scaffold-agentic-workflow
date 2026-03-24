@@ -1,0 +1,156 @@
+_subdirectory: template
+_exclude:
+  - "{% if not use_ai_layer %}CLAUDE.md{% endif %}"
+  - "{% if not use_ai_layer %}GEMINI.md{% endif %}"
+  - "{% if not use_ai_layer %}JULES.md{% endif %}"
+  - "{% if not use_ai_layer %}.mcp.json{% endif %}"
+  - "{% if not use_ai_layer %}.claude{% endif %}"
+  - "{% if not use_ai_layer %}.claude/**{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/qa.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/release.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/scheduled.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/community.yml{% endif %}"
+  - "{% if not use_ai_layer %}.github/workflows/code-review.yml{% endif %}"
+_skip_if_exists:
+  - CHANGELOG.md
+  - .copier-answers.yml
+_tasks:
+  - "{% if use_ai_layer %}echo 'AI layer generated — update CLAUDE.md with project context'{% endif %}"
+  - "just bootstrap"
+
+# ── Project Identity ──────────────────────────────────────────
+project_name:
+  type: str
+  help: "Human-readable project name (e.g. My Awesome Tool)"
+
+project_slug:
+  type: str
+  help: "URL/repo slug (e.g. my-awesome-tool)"
+  default: "{{ project_name | lower | replace(' ', '-') }}"
+
+project_description:
+  type: str
+  help: "One-line description for README and package metadata"
+
+project_url:
+  type: str
+  help: "Project homepage URL"
+  default: "https://github.com/{{ github_org }}/{{ project_slug }}"
+
+github_org:
+  type: str
+  help: "GitHub org or username (e.g. yevheniidehtiar)"
+  default: "yevheniidehtiar"
+
+author_name:
+  type: str
+  help: "Primary author full name"
+
+author_email:
+  type: str
+  help: "Primary author email"
+
+# ── Language & Runtime ────────────────────────────────────────
+language:
+  type: str
+  help: "Primary language"
+  choices:
+    - python
+    - golang
+    - typescript
+    - polyglot
+  default: python
+
+python_version:
+  type: str
+  help: "Python version (e.g. 3.13)"
+  default: "3.13"
+  when: "{{ language in ['python', 'polyglot'] }}"
+
+go_version:
+  type: str
+  help: "Go version (e.g. 1.24)"
+  default: "1.24"
+  when: "{{ language in ['golang', 'polyglot'] }}"
+
+node_version:
+  type: str
+  help: "Bun version (e.g. 1.2)"
+  default: "1.2"
+  when: "{{ language in ['typescript', 'polyglot'] }}"
+
+# ── Versioning ────────────────────────────────────────────────
+versioning:
+  type: str
+  help: "Version strategy"
+  choices:
+    - semver
+    - calver
+  default: semver
+
+initial_version:
+  type: str
+  help: "Initial version"
+  default: "{% if versioning == 'calver' %}2026.1.0{% else %}0.1.0{% endif %}"
+
+# ── CI/CD ─────────────────────────────────────────────────────
+ci_target:
+  type: str
+  help: "CI/CD platform"
+  choices:
+    - github-actions
+    - gitlab-ci
+    - both
+  default: github-actions
+
+# ── License ───────────────────────────────────────────────────
+license:
+  type: str
+  help: "OSS license"
+  choices:
+    - MIT
+    - Apache-2.0
+  default: MIT
+
+copyright_year:
+  type: str
+  help: "Copyright year"
+  default: "2026"
+
+# ── Features ──────────────────────────────────────────────────
+use_docker:
+  type: bool
+  help: "Include Dockerfile and docker-compose?"
+  default: true
+
+use_mkdocs:
+  type: bool
+  help: "Include MkDocs documentation site?"
+  default: true
+
+# ── AI Agentic Layer ──────────────────────────────────────────
+use_ai_layer:
+  type: bool
+  help: "Include AI agentic layer (CLAUDE.md, GEMINI.md, JULES.md, .mcp.json, .claude/commands/)?"
+  default: true
+
+default_ai_model:
+  type: str
+  help: "Default Claude model for .mcp.json / CLAUDE.md"
+  default: "claude-sonnet-4-20250514"
+  when: "{{ use_ai_layer }}"
+
+mcp_slack_enabled:
+  type: bool
+  help: "Enable Slack MCP server in .mcp.json?"
+  default: true
+  when: "{{ use_ai_layer }}"
+
+agent_style:
+  type: str
+  help: "AI agent instruction verbosity"
+  choices:
+    - concise
+    - detailed
+  default: detailed
+  when: "{{ use_ai_layer }}"

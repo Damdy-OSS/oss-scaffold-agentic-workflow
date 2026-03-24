@@ -1,0 +1,67 @@
+{% if use_ai_layer %}
+# {{ project_name }} — Claude Code Instructions
+
+## Project Overview
+
+{{ project_description }}
+
+- **Language:** {{ language }}
+- **Repo:** https://github.com/{{ github_org }}/{{ project_slug }}
+- **Docs:** {{ project_url }}
+
+## Architecture
+
+> TODO: Fill in after initial scaffold. Describe key modules, data flows, external dependencies.
+
+## Development Workflow
+
+```bash
+just bootstrap   # install all deps
+just lint        # run linter (ruff)
+just test        # run test suite
+just build       # compile / package
+just docs        # serve docs locally
+```
+
+## Claude Code Conventions
+
+- Always run `just lint` and `just test` before committing
+- Keep functions small and single-responsibility
+- Write tests for all public functions
+- Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`
+- Never commit secrets — use `.env` (gitignored) or vault
+- Type hints required on all public API
+- Docstrings required on all public modules, classes, and functions
+
+## Key Files
+
+| Path | Purpose |
+|------|---------|
+| `justfile` | All dev targets |
+| `scripts/` | Automation helpers |
+| `.claude/commands/` | Claude slash commands |
+| `docs/` | MkDocs source |
+| `docs/agentic-workflow/` | OSS agentic workflow specs |
+
+## MCP Servers in Use
+
+See `.mcp.json` for active MCP servers. Default model: `{{ default_ai_model }}`.
+
+## Agentic Workflow
+
+This project follows an 8-agent OSS development workflow. See `docs/agentic-workflow/` for full specs:
+
+1. **Deep Research** → clarify ideas via structured Q&A (Opus)
+2. **Roadmap Planning** → decompose into GitHub milestones/epics/tasks
+3. **Dev Agents** → tiered implementation (Jules/Gemini CLI/Claude Code)
+4. **Code Review** → automated audit trail on PRs
+5. **QA** → compatibility matrix + test analysis
+6. **Release** → changelog, semver, publish
+7. **Scheduled** → weekly health monitoring
+8. **Community** → triage external contributions
+
+## Context for AI Agents
+
+> TODO: Add domain-specific context — what problem does this solve, who uses it, what are the
+> key invariants the code must maintain?
+{% endif %}

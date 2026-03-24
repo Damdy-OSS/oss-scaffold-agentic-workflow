@@ -1,0 +1,8 @@
+"""Tests for {{ project_name }}."""
+
+from {{ project_slug | replace('-','_') }} import __version__
+
+
+def test_version():
+    """Verify version string is set."""
+    assert __version__ == "{{ initial_version }}"

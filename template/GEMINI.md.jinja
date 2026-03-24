@@ -1,0 +1,30 @@
+{% if use_ai_layer %}
+# {{ project_name }} — Gemini CLI Instructions
+
+## Project Overview
+
+{{ project_description }}
+
+**Language:** {{ language }} | **Repo:** https://github.com/{{ github_org }}/{{ project_slug }}
+
+## Development Commands
+
+```bash
+just lint    # lint
+just test    # test
+just build   # build
+just docs    # docs
+```
+
+## Gemini CLI Conventions
+
+- Use `gemini -p` for one-shot tasks, interactive mode for exploration
+- Always verify generated code with `just lint && just test`
+- Prefer reading existing patterns before generating new code
+- Use `@file` syntax to ground context: `gemini "@src/main.py explain this"`
+- Reserve Gemini CLI for size:S tasks (< 30 min effort) — quick fixes, config changes, utility functions
+
+## Architecture Notes
+
+> TODO: Fill in after scaffold — key modules, patterns, constraints.
+{% endif %}

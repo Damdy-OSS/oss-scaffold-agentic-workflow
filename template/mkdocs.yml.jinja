@@ -1,0 +1,64 @@
+site_name: "{{ project_name }}"
+site_description: "{{ project_description }}"
+site_url: "{{ project_url }}"
+repo_url: "https://github.com/{{ github_org }}/{{ project_slug }}"
+repo_name: "{{ github_org }}/{{ project_slug }}"
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - search.suggest
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - API Reference: api/index.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
+  - Agentic Workflow:
+    - Overview: agentic-workflow/index.md
+    - Cost Model: agentic-workflow/cost-model.md
+    - Deep Research Agent: agentic-workflow/deep-research-agent.md
+    - Roadmap Planning Agent: agentic-workflow/roadmap-planning-agent.md
+    - Dev Agents: agentic-workflow/dev-agents.md
+    - Code Review Agent: agentic-workflow/code-review-agent.md
+    - QA Agent: agentic-workflow/qa-agent.md
+    - Release Agent: agentic-workflow/release-agent.md
+    - Scheduled Agent: agentic-workflow/scheduled-agent.md
+    - Community Ingestion: agentic-workflow/community-ingestion.md
+    - Orchestration: agentic-workflow/orchestration.md
