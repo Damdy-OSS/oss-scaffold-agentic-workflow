@@ -39,6 +39,13 @@ RULESET_PAYLOAD=$(cat <<EOF
   "name": "Branch Protection",
   "target": "branch",
   "enforcement": "active",
+  "bypass_actors": [
+    {
+      "actor_id": 5,
+      "actor_type": "RepositoryRole",
+      "bypass_mode": "pull_request"
+    }
+  ],
   "conditions": {
     "ref_name": {
       "include": ["refs/heads/main", "refs/heads/develop"],
